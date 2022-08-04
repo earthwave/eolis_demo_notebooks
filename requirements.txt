@@ -1,7 +1,5 @@
-matplotlib 
-pandas
-netCDF4
-glob
-numpy
-geopandas
-datetime
+matplotlib==3.5.2
+pandas==1.4.3
+netCDF4==1.6.0
+numpy==1.22.3
+geopandas==0.11.0
