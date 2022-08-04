@@ -4,14 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "*Jupyter notebook that demonstrates how to download and use Cryotempo-EOLIS data, downloaded from cs2eo.org. Here, we will read in some point data and then plot a timeseries*\n",
-    "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
+    "Jupyter notebook that demonstrates how to download and use Cryotempo-EOLIS data, downloaded from cs2eo.org.\n",
     "\n",
     "To run this notebook, you will need to make sure that the folllowing packages are installed in your python environment (all can be installed via pip/conda)\n",
     "\n",
@@ -30,17 +23,22 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "1) Download Data\n",
+    "POINT PRODUCT - TIMESERIES"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "1) To Download Data:\n",
     "\n",
-    "If you have downloaded this notebook to your local drive, then you will also need to download some data. You can use this notebook to plot any CryoTEMPO-EOLIS point data that you choose. For a quick example, follow the below instructions to download a small example dataset:\n",
-    "\n",
-    "    - Cryotempo-EOLIS data is downloaded using cs2eo.org\n",
-    "    - Paste the following url into your browser:\n",
-    "    https://cs2eo.org/search?searchMode=single-polygon&productA=TEMPO_SWATH_POINT&polygon=[[-21.42,65.23],[-20.98,62.95],[-13.55,62.86],[-13.74,65.37],[-21.42,65.23]]&startDate=2021-07-01&startTime=00:00&endDate=2022-05-01&endTime=00:00&trackSpacing=100&batchRequest=false\n",
-    "    - This will take you to a specific query of Iceland.\n",
-    "    - Click on the link to 'Download CryoSat-2 CryoTEMPO EOLIS Point Product data'\n",
-    "    - This will download a python script that you should run in a terminal - it will download 11 months of point data for this region to your current directory. This will take a couple of minutes. It requires 79MB of space on your local drive. \n",
-    "    - Once the data has downloaded, you can work through the steps described in this notebook"
+    "- Cryotempo-EOLIS data is downloaded using cs2eo.org\n",
+    "- Paste the following url into your browser:\n",
+    "https://cs2eo.org/search?searchMode=single-polygon&productA=TEMPO_SWATH_POINT&polygon=[[-21.42,65.23],[-20.98,62.95],[-13.55,62.86],[-13.74,65.37],[-21.42,65.23]]&startDate=2021-07-01&startTime=00:00&endDate=2022-05-01&endTime=00:00&trackSpacing=100&batchRequest=false\n",
+    "- This will take you to a specific query of Iceland.\n",
+    "- Click on the link to 'Download CryoSat-2 CryoTEMPO EOLIS Point Product data'\n",
+    "- This will download a python script that you should run in a terminal - it will download 11 months of point data for this region to your current directory. This will take a couple of minutes. It requires 79MB of space on your local drive. \n",
+    "- Once the data has downloaded, you can run the following notebook:"
    ]
   },
   {
@@ -48,13 +46,6 @@
    "metadata": {},
    "source": [
     "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "Imports necessary to run the rest of the code"
    ]
   },
   {
@@ -74,18 +65,12 @@
    ]
   },
   {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "Function to retrieve data from a net cdf file and store as a dataframe."
-   ]
-  },
-  {
    "cell_type": "code",
    "execution_count": 2,
    "metadata": {},
    "outputs": [],
    "source": [
+    "# Function to retrieve data from a net cdf file and store as a dataframe.\n",
     "def extract_data_from_net_cdfs(filepath):\n",
     "    \n",
     "    data = {}\n",
@@ -98,18 +83,12 @@
    ]
   },
   {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "Function to extract the dates associated with each row in a dataframe. It will find the unique dates, and return them as datetime.datetime objects."
-   ]
-  },
-  {
    "cell_type": "code",
    "execution_count": 3,
    "metadata": {},
    "outputs": [],
    "source": [
+    "# Function to extract the dates associated with each row in a dataframe. It will find the unique dates, and return them as datetime.datetime objects.\n",
     "def extract_dates_from_dataframe(data):\n",
     "    \n",
     "    time_list = data['time']\n",
@@ -125,18 +104,12 @@
    ]
   },
   {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "Function to generate a basic timeseries from a dataframe of Cryotempo-EOLIS point data. "
-   ]
-  },
-  {
    "cell_type": "code",
    "execution_count": 4,
    "metadata": {},
    "outputs": [],
    "source": [
+    "# Function to generate a basic timeseries from a dataframe of Cryotempo-EOLIS point data. \n",
     "def generate_timeseries(data, dates):\n",
     "    \n",
     "    interval = 90.\n",
@@ -171,13 +144,6 @@
    ]
   },
   {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "If you have downloaded the notebook onto your local machine, you will need to edit the filepath below to point to the location of the downloaded data. We will then locate and store the names of each of the point data files. The point data is stored in *netcdf* files, which have the suffix .nc"
-   ]
-  },
-  {
    "cell_type": "code",
    "execution_count": 15,
    "metadata": {},
@@ -186,14 +152,6 @@
     "# Fill this filepath in with the location of the downloaded point data on your local system\n",
     "data_filepath = '/data/ox1/working/cryotempo_investigations/eolis_demo/point_data/'\n",
     "files = sorted(glob.glob(data_filepath+'/*.nc'))"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "Now that the files containing the data have been located, we will load the data that they contain into python, one file at a time. The following code calls the extract_data_from_net_cdfs function, which: opens a netcdf file, reads in the data associated with each variable, and stores this data in the column of a dataframe.\n",
-    "After loading in the data from each individual file returned by the point product query, we will combine them into one dataframe. Finally, we will roughly mask the dataframe to remove points that are not close to the Vatnajokull glacier. To do this precisely, one would need to use a file that specifies the exact geographic location of the glacier. For simplicity here, we use a simple rectangle."
    ]
   },
   {
@@ -221,15 +179,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n",
     "3. Use the Cryotempo-EOLIS point product to plot a timeseries for this area of Greenland"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "Now that the data has been loaded into the notebook, and stored in a dataframe, we can create some visuals that allow us to quickly explore the point product and its capabilities."
    ]
   },
   {
