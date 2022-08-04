@@ -1,0 +1,7 @@
+matplotlib 
+pandas
+netCDF4
+glob
+numpy
+geopandas
+datetime
